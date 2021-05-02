@@ -1,0 +1,25 @@
+
+1. Have a running Kubernetes Cluster 
+2. Install CLI
+   - Download from https://github.com/apache/openwhisk-cli/releases
+
+3. [Install on cluster](https://github.com/apache/openwhisk-deploy-kube/blob/master/README.md)
+
+'''bash
+kubectl label nodes --all openwhisk-role=invoker
+
+
+helm repo add openwhisk https://openwhisk.apache.org/charts
+helm repo update
+helm install owdev openwhisk/openwhisk -n openwhisk --create-namespace -f openwhisk.yaml
+
+./wsk.exe property set --apihost 'localhost:31001' 
+# Yes! That is a default token use as shown here
+./wsk.exe property set --auth 23bc46b1-71f6-4ed5-8c54-816aa4f8c502:123zO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP
+
+# -i takes care of the invalid cert
+./wsk.exe action get /whisk.system/samples/greeting --save -i
+./wsk.exe action invoke /whisk.system/samples/greeting --result -i
+
+# Try out more: https://github.com/apache/openwhisk/blob/master/docs/actions.md
+'''
