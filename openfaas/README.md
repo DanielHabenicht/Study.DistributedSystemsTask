@@ -44,4 +44,16 @@ faas-cli deploy -f ./astronaut-finder.yml
 # Show Logs
 kubectl logs deployment/astronaut-finder -n openfaas-fn
 
+# Try out query parameters
+faas-cli deploy --name env --fprocess="env" --image="functions/alpine:latest"
+echo "" | faas-cli invoke env --query workshop=1
+curl -X GET $OPENFAAS_URL/function/env/some/path -d ""
+curl $OPENFAAS_URL/function/env --header "X-Output-Mode: json" -d ""
+
+# Chain actions
+echo -n "" | faas-cli invoke nodeinfo | faas-cli invoke markdown
+
+
+faas-cli store deploy SentimentAnalysis
+echo -n "California is great, it's always sunny there." | faas-cli invoke sentimentanalysis
 ```

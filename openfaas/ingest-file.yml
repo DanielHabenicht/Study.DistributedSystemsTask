@@ -1,0 +1,13 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: http://127.0.0.1:8080
+functions:
+  ingest-file:
+    lang: python3
+    handler: ./ingest-file
+    image: danielhabenicht/ingest-file:latest
+    readonly_root_filesystem: true
+    environment:
+        save_path: "/tmp/"
+

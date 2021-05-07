@@ -7,4 +7,5 @@ functions:
     lang: python3
     handler: ./hello-openfaas
     image: danielhabenicht/hello-openfaas:latest
-
+    environment:
+      combine_output: false

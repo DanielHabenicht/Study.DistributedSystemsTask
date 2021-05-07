@@ -1,0 +1,12 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: http://127.0.0.1:8080
+functions:
+  chain:
+    lang: python3
+    handler: ./chain
+    image: danielhabenicht/chain:latest
+    environment: 
+      gateway_hostname: gateway.openfaas
+
