@@ -1,0 +1,20 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: http://127.0.0.1:8080
+functions:
+  first:
+    lang: python3
+    handler: ./first
+    image: danielhabenicht/first:latest
+    environment:
+      write_debug: ${TEST:-false}
+    
+
+  second:
+    lang: python3
+    handler: ./second
+    image: danielhabenicht/second:latest
+    environment:
+      write_debug: ${TEST:-false}
+
