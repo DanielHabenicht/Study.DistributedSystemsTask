@@ -56,4 +56,9 @@ echo -n "" | faas-cli invoke nodeinfo | faas-cli invoke markdown
 
 faas-cli store deploy SentimentAnalysis
 echo -n "California is great, it's always sunny there." | faas-cli invoke sentimentanalysis
+
+
+# Teardown
+helm delete -n openfaas openfaas
+kubectl delete namespace openfaas openfaas-fn
 ```
