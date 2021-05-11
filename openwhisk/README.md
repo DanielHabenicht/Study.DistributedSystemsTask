@@ -35,6 +35,7 @@ wsk action create example example.js -i
 wsk action invoke example --result -i
 
 cd crawler
+npm install
 zip -rq crawler.zip \*
 
 # Maybe delete before
@@ -45,6 +46,8 @@ wsk action invoke crawler -r --param domain danielhabenicht.github.io -i
 wsk action invoke crawler --result --param domain t-systems-mms.github.io -i
 
 # Triggers
+
+# This is an action that crawls the website for broken links and show them
 
 wsk trigger create interval \
  --feed /whisk.system/alarms/interval \
