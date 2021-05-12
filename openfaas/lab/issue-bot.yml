@@ -3,10 +3,10 @@ provider:
   name: openfaas
   gateway: http://127.0.0.1:8080
 functions:
-  notification-bot:
+  issue-bot:
     lang: python3
-    handler: ./notification-bot
-    image: danielhabenicht/notification-bot:latest
+    handler: ./issue-bot
+    image: danielhabenicht/issue-bot:latest
     environment:
       write_debug: true
       gateway_hostname: "gateway.openfaas"
