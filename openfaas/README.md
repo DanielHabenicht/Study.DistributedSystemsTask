@@ -12,6 +12,7 @@ curl -SLsf https://dl.get-arkade.dev/ | sudo sh
 arkade install openfaas
 
 # Get and persist password
+kubectl port-forward svc/gateway -n openfaas 8080:8080
 PASSWORD=$(kubectl get secret -n openfaas basic-auth -o jsonpath="{.data.basic-auth-password}" | base64 --decode; echo)
 echo -n $PASSWORD | faas-cli login --username admin --password-stdin
 echo $PASSWORD
@@ -57,8 +58,16 @@ echo -n "" | faas-cli invoke nodeinfo | faas-cli invoke markdown
 faas-cli store deploy SentimentAnalysis
 echo -n "California is great, it's always sunny there." | faas-cli invoke sentimentanalysis
 
-
 # Teardown
 helm delete -n openfaas openfaas
 kubectl delete namespace openfaas openfaas-fn
+```
+
+## GitHub Bot
+
+```
+kubectl -n openfaas run \
+--image=alexellis2/ngrok-admin \
+--port=4040 \
+ngrok -- http gateway:8080
 ```
